@@ -37,9 +37,9 @@
 	<button onclick="sendMessage('联通')">联通</button>
 	<button onclick="sendMessage('电信')">电信</button>
   <p>外省卡请点击：</p>
-	<button onclick="sendMessage('中国移动')">外省移动</button>
-	<button onclick="sendMessage('中国联通')">外省联通</button>
-	<button onclick="sendMessage('中国电信')">外省电信</button>
+	<button onclick="sendMessage('外省移动')" title="外省卡请点击：https://m.baidu.com/s?word=中国移动&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890">外省移动</button>
+	<button onclick="sendMessage('外省联通')" title="外省卡请点击：https://m.baidu.com/s?word=中国联通&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890">外省联通</button>
+	<button onclick="sendMessage('外省电信')" title="外省卡请点击：https://m.baidu.com/s?word=中国电信&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890">外省电信</button>
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
@@ -57,36 +57,18 @@
     } else if (operator === '电信') {
       recipient = '10001';
       message = 'smz#';
-    }else if (operator === '中国移动') {
-				// 打开应用商店（按照不同操作系统和设备具体情况可能会有不同的方案）
-				if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-					window.open('https://apps.apple.com/cn/app/%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8/id1024819997');
-				} else if (navigator.userAgent.match(/android/i)) {
-					window.open('https://play.google.com/store/apps/details?id=com.chinamobile.message&hl=zh_CN&gl=US');
-				} else {
-					alert('非常抱歉，您的设备不支持该功能');
-				}
-			} else if (operator === '中国电信') {
-				// 打开应用商店（按照不同操作系统和设备具体情况可能会有不同的方案）
-				if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-					window.open('https://apps.apple.com/cn/app/%E4%B8%AD%E5%9B%BD%E7%94%B5%E4%BF%A1%E5%AE%A2%E6%88%B7%E7%AB%AF/id467942777');
-				} else if (navigator.userAgent.match(/android/i)) {
-					window.open('https://play.google.com/store/apps/details?id=com.chinamobile.message&hl=zh_CN&gl=US');
-				} else {
-					alert('非常抱歉，您的设备不支持该功能');
-				}
-			} else if (operator === '中国联通') {
-				// 打开应用商店（按照不同操作系统和设备具体情况可能会有不同的方案）
-				if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
-					window.open('https://apps.apple.com/cn/app/%E4%B8%AD%E5%9B%BD%E8%81%94%E9%80%9A%E5%8A%A8%E7%94%A8/id340038926');
-				} else if (navigator.userAgent.match(/android/i)) {
-					window.open('https://play.google.com/store/apps/details?id=com.chinaunicom.mobileapp&hl=zh_CN&gl=US');
-				} else {
-					alert('非常抱歉，您的设备不支持该功能');
-				}
-			}
-			else {
-				alert('非常抱歉，您选择的运营商不存在');
+    }else if (operator === '电信') {
+      recipient = '10001';
+      message = 'smz#';
+    }else if (operator === '外省移动') {
+				window.location.href = 'https://m.baidu.com/s?word=中国移动&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890';
+				return;
+			} else if (operator === '外省联通') {
+				window.location.href = 'https://m.baidu.com/s?word=中国联通&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890';
+				return;
+			} else if (operator === '外省电信') {
+				window.location.href = 'https://m.baidu.com/s?word=中国电信&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890';
+				return;
 			}
 
     // 调用手机自带短信功能自动编辑短信
