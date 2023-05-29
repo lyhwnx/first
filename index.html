@@ -30,19 +30,56 @@
   <script src="js/main.js"></script>
   <h1>发送运营商短信</h1>
 
-	<p>请选择一个运营商：</p>
+<p>请选择一个运营商：</p>
 
-	<!-- 选择运营商 -->
-	<button onclick="sendMessage('移动')">移动</button>
-	<button onclick="sendMessage('联通')">联通</button>
-	<button onclick="sendMessage('电信')">电信</button>
-  <p>外省卡请点击：</p>
-	<button onclick="sendMessage('外省移动')" title="外省卡请点击：https://m.baidu.com/s?word=中国移动&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890">外省移动</button>
-	<button onclick="sendMessage('外省联通')" title="外省卡请点击：https://m.baidu.com/s?word=中国联通&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890">外省联通</button>
-	<button onclick="sendMessage('外省电信')" title="外省卡请点击：https://m.baidu.com/s?word=中国电信&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890">外省电信</button>
+<!-- 选择运营商 -->
+<button onclick="sendMessage('移动')">移动</button>
+<button onclick="sendMessage('联通')">联通</button>
+<button onclick="sendMessage('电信')">电信</button>
+<p>外省卡请点击：</p>
+<button onclick="search('中国联通')">外省联通</button>
+<button onclick="search('中国移动')">外省移动</button>
+<button onclick="search('中国电信')">外省电信</button>
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
+function search(storeName) {
+  let device = '';
+  let userAgent = navigator.userAgent.toLowerCase();
+  var ua = navigator.userAgent.toLowerCase();
+  // 判断设备类型
+  if (userAgent.indexOf('android') > -1) {
+    device = 'android';
+  } else if (userAgent.indexOf('iphone') > -1 || userAgent.indexOf('ipad') > -1 || userAgent.indexOf('ipod') > -1) {
+    device = 'ios';
+  }
+
+  // 打开不同的应用商店并搜索
+  if (ua.match(/MicroMessenger/i) == "micromessenger") {
+    // 是微信浏览器打开
+    switch (device) {
+    case 'android':
+      alert('请前往应用商店搜索"' + storeName + '"');
+      break;
+    case 'ios':
+      alert('请前往App Store搜索"' + storeName + '"');
+      break;
+    default:
+      console.log('不支持的设备类型');
+  }
+}else{
+  switch (device) {
+    case 'android':
+      window.location.href = 'market://search?q=' + encodeURIComponent(storeName);
+      break;
+    case 'ios':
+      window.location.href = 'https://itunes.apple.com/search?term=' + encodeURIComponent(storeName) + '&country=cn&entity=software';
+      break;
+    default:
+      console.log('不支持的设备类型');
+     }
+  }
+}
     window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
   function sendMessage(operator) {
     var recipient, message;
@@ -57,19 +94,7 @@
     } else if (operator === '电信') {
       recipient = '10001';
       message = 'smz#';
-    }else if (operator === '电信') {
-      recipient = '10001';
-      message = 'smz#';
-    }else if (operator === '外省移动') {
-				window.location.href = 'https://m.baidu.com/s?word=中国移动&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890';
-				return;
-			} else if (operator === '外省联通') {
-				window.location.href = 'https://m.baidu.com/s?word=中国联通&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890';
-				return;
-			} else if (operator === '外省电信') {
-				window.location.href = 'https://m.baidu.com/s?word=中国电信&ts=0123456789&cu=10025&tn=baiduwp_1o_bddft&logid=1234567890';
-				return;
-			}
+    }
 
     // 调用手机自带短信功能自动编辑短信
     // 判断是否为 iOS 操作系统
