@@ -37,9 +37,12 @@
 <button onclick="sendMessage('联通')">联通</button>
 <button onclick="sendMessage('电信')">电信</button>
 <p>外省卡请点击：</p>
-<button onclick="search('中国联通')">外省联通</button>
-<button onclick="search('中国移动')">外省移动</button>
-<button onclick="search('中国电信')">外省电信</button>
+//<button onclick="search('中国联通')">外省联通</button>
+//<button onclick="search('中国移动')">外省移动</button>
+//<button onclick="search('中国电信')">外省电信</button>
+  <button onclick="window.location.href='https://shouji.10086.cn/sewapk/';">外省移动</button>
+  <button onclick="window.location.href='http://gd.10000.gd.cn//share/download.do?downFlag=ios';">外省电信</button>
+  <button onclick="window.location.href='http://m.client.10010.com/mobileService/unicombox/download.html';">外省联通</button>
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
@@ -58,19 +61,27 @@ function search(storeName) {
  if (isWechat) {
         alert('请下载"中国移动"，"中国电信"，或"中国联通"APP');
         // 此处可以调用微信 JS-SDK 的接口，打开手机应用商店搜索对应 APP
-    }   
-  else{
-  switch (device) {
-    case 'android':
-      window.location.href = 'market://search?q=' + encodeURIComponent(storeName);
-      break;
-    case 'ios':
-      window.location.href = 'https://itunes.apple.com/search?term=' + encodeURIComponent(storeName) + '&country=cn&entity=software';
-      break;
-    default:
-      console.log('不支持的设备类型');
-     }
-  }
+    }   else {
+        // 如果不在微信浏览器上，直接跳转到对应应用商店搜索页面
+        var mobile = '';
+        if (/iphone|ipad|ipod/.test(ua)) {
+            mobile = 'ios';
+        } else if (/android/.test(ua)) {
+            mobile = 'android';
+        }
+        switch (mobile) {
+            case 'ios':
+                window.location.href = 'https://itunes.apple.com/cn/app/idnum';
+                // 此处 num 替换为对应 APP 的 Apple Store ID
+                break;
+            case 'android':
+                window.location.href = 'https://play.google.com/store/search?q=中国' + encodeURIComponent('移动, 电信, 联通');
+                // 在搜索框中输入“中国移动”，“中国电信”，或“中国联通”，用 encodeURIComponent() 编码中文字符
+                break;
+            default:
+                alert('请下载"中国移动"，"中国电信"，或"中国联通"APP');
+                break;
+        }
 }
     window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
   function sendMessage(operator) {
