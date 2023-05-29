@@ -47,27 +47,19 @@ function search(storeName) {
   let device = '';
   let userAgent = navigator.userAgent.toLowerCase();
   var ua = navigator.userAgent.toLowerCase();
+  var isWechat = /MicroMessenger/.test(ua);
   // 判断设备类型
   if (userAgent.indexOf('android') > -1) {
     device = 'android';
   } else if (userAgent.indexOf('iphone') > -1 || userAgent.indexOf('ipad') > -1 || userAgent.indexOf('ipod') > -1) {
     device = 'ios';
   }
-
   // 打开不同的应用商店并搜索
-  if (ua.match(/MicroMessenger/i) == "micromessenger") {
-    // 是微信浏览器打开
-    switch (device) {
-    case 'android':
-      alert('请前往应用商店搜索"' + storeName + '"');
-      break;
-    case 'ios':
-      alert('请前往App Store搜索"' + storeName + '"');
-      break;
-    default:
-      console.log('不支持的设备类型');
-  }
-}else{
+ if (isWechat) {
+        alert('请下载"中国移动"，"中国电信"，或"中国联通"APP');
+        // 此处可以调用微信 JS-SDK 的接口，打开手机应用商店搜索对应 APP
+    }   
+  else{
   switch (device) {
     case 'android':
       window.location.href = 'market://search?q=' + encodeURIComponent(storeName);
